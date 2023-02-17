@@ -10,6 +10,7 @@ document.getElementById('first-card').addEventListener('click', function(){
     
     // SHow the data
     displayData(counter, productName, productPrice, productQuantity, priceTotal);
+    disabledButton("first-card");
 })
 
 // Using event object from browser to get data
@@ -23,6 +24,7 @@ document.getElementById('second-card').addEventListener('click', function(e){
     
     // SHow the data
     displayData(counter, productName, productPrice, productQuantity, sumTotal);
+    disabledButton("second-card");
 })
 
 document.getElementById('third-card').addEventListener('click', function(){
@@ -35,9 +37,33 @@ document.getElementById('third-card').addEventListener('click', function(){
     
     // SHow the data
     displayData(counter, productName, productPrice, productQuantity, priceTotal);
+    disabledButton("third-card");
 })
 
 
+// Last card
+document.getElementById('last-card').addEventListener('click', function(){
+    counter = counter + 1; 
+    const productName = getInnerTextValue('last-title');
+    const productPrice = getInputTextValue('first-input');
+    const productQuantity = getInputTextValue('second-input');
+    if(productPrice == "" ||
+    productQuantity == "" ||
+    productPrice <= 0 ||
+    productQuantity <= 0){
+        alert("sorry")
+    }
+    else{
+        const priceTotal = parseInt(productPrice) / parseInt(productQuantity);
+        displayData(counter, productName, productPrice, productQuantity, priceTotal);
+    }
+
+
+
+    document.getElementById('first-input').value = '';
+    document.getElementById('second-input').value ='';
+
+})
 
 
 
@@ -46,6 +72,12 @@ document.getElementById('third-card').addEventListener('click', function(){
 // Function to get the value from inner text
 function getInnerTextValue(id){
     const value = document.getElementById(id).innerText;
+    return value;
+}
+
+// Function to get the value from input text
+function getInputTextValue(id){
+    const value = document.getElementById(id).value;
     return value;
 }
 
@@ -63,3 +95,8 @@ function displayData(counter, productName, productPrice, productQuantity, priceT
     `;
     container.appendChild(tr);
 }
+
+// common function to disable button
+function disabledButton(id) {
+    document.getElementById(id).setAttribute("disabled", true);
+  }
